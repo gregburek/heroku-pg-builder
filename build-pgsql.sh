@@ -21,5 +21,7 @@ LDFLAGS='-Wl,--as-needed -Wl,-z,now' \
   --with-libxslt \
   --with-openssl
 make && make install
+cd contrib
+make && make install
 rm -rf $root/*
 mv /app/vendor/* $root/
