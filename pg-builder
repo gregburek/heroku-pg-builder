@@ -45,7 +45,7 @@ fi
 
 ftp_site="http://ftp.postgresql.org/pub/source/"
 releases="$(curl "$ftp_site" 2>/dev/null | \
-  sed -r -n 's/.*href="v([0-9.]+(alpha|beta|rc)?[0-9]+)\/".*/\1/p')"
+  sed -E -n 's/.*href="v([0-9.]+(alpha|beta|rc)?[0-9]+)\/".*/\1/p')"
 
 # the releases are not quite sorted; and my shell-fu is not 1337 enough to sort them
 releases="$(ruby -e "puts %w[$releases].select { |release|
@@ -96,7 +96,7 @@ then
   fi
 
   echo "Building Postgres $build_ver"
-  build_script="https://raw.github.com/deafbybeheading/heroku-pg-builder/master/build-pgsql.sh"
+  build_script="https://raw.github.com/gregburek/heroku-pg-builder/master/build-pgsql.sh"
   psql_url="http://ftp.postgresql.org/pub/source/v${build_ver}/postgresql-${build_ver}.tar.bz2"
   slug=$(heroku build -p "$psql_url" -b "$build_script")
 
